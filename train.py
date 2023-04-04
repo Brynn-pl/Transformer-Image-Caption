@@ -110,7 +110,9 @@ def train(args, train_loader, encoder, decoder, criterion, encoder_optimizer, de
         batch_time.update(time.time() - start)
         start = time.time()
         if i % args.print_freq == 0:
-            print("Epoch: {}/{} step: {}/{} Loss: {} AVG_Loss: {} Top-5 Accuracy: {} Batch_time: {}s".format(epoch+1, args.epochs, i+1, len(train_loader), losses.val, losses.avg, top5accs.val, batch_time.val))
+#             print("Epoch: {}/{} step: {}/{} Loss: {} AVG_Loss: {} Top-5 Accuracy: {} Batch_time: {}s".format(epoch+1, args.epochs, i+1, len(train_loader), losses.val, losses.avg, top5accs.val, batch_time.val))
+            print("Epoch: [{}/{}] step: [{}/{}]\tLoss: {}\tAVG_Loss: {}\tTop-5 Accuracy: {}\tBatch_time: {}s"
+                    .format(epoch+1, args.epochs, i+1, len(train_loader), losses.val, losses.avg, top5accs.val, batch_time.val))
 
 
 def validate(args, val_loader, encoder, decoder, criterion):
@@ -220,10 +222,12 @@ def validate(args, val_loader, encoder, decoder, criterion):
     # Calculate BLEU1~4, METEOR, ROUGE_L, CIDEr scores
     metrics = get_eval_score(references, hypotheses)
 
-    print("EVA LOSS: {} TOP-5 Accuracy {} BLEU-1 {} BLEU2 {} BLEU3 {} BLEU-4 {} METEOR {} ROUGE_L {} CIDEr {}".format
-          (losses.avg, top5accs.avg,  metrics["Bleu_1"],  metrics["Bleu_2"],  metrics["Bleu_3"],  metrics["Bleu_4"],
+#     print("EVA LOSS: {} TOP-5 Accuracy {} BLEU-1 {} BLEU2 {} BLEU3 {} BLEU-4 {} METEOR {} ROUGE_L {} CIDEr {}".format
+#           (losses.avg, top5accs.avg,  metrics["Bleu_1"],  metrics["Bleu_2"],  metrics["Bleu_3"],  metrics["Bleu_4"],
+#            metrics["METEOR"], metrics["ROUGE_L"], metrics["CIDEr"]))
+    print("\n * EVA LOSS: {}, TOP-5 Accuracy: {},\nBLEU-1: {}, BLEU2: {}, BLEU3: {}, BLEU-4: {},\nMETEOR: {}, ROUGE_L: {}, CIDEr: {}"
+          .format(losses.avg, top5accs.avg,  metrics["Bleu_1"],  metrics["Bleu_2"],  metrics["Bleu_3"],  metrics["Bleu_4"],
            metrics["METEOR"], metrics["ROUGE_L"], metrics["CIDEr"]))
-
     return metrics
 
 
@@ -355,8 +359,8 @@ if __name__ == '__main__':
     # Move to GPU, if available
     decoder = decoder.to(device)
     encoder = encoder.to(device)
-    print("encoder_layers {} decoder_layers {} n_heads {} dropout {} attention_method {} encoder_lr {} "
-          "decoder_lr {} alpha_c {}".format(args.encoder_layers, args.decoder_layers, args.n_heads, args.dropout,
+    print("encoder_layers: {}, decoder_layers: {}, n_heads: {}, dropout: {}, attention_method: {}, encoder_lr: {}, "
+          "decoder_lr: {}, alpha_c: {}".format(args.encoder_layers, args.decoder_layers, args.n_heads, args.dropout,
                                             args.attention_method, args.encoder_lr, args.decoder_lr, args.alpha_c))
 #     print(encoder)
 #     print(decoder)
