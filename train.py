@@ -231,7 +231,7 @@ if __name__ == '__main__':
     # Data parameters
     parser.add_argument('--data_folder', default="./dataset/generated_data",
                         help='folder with data files saved by create_input_files.py.')
-    parser.add_argument('--data_name', default="coco_5_cap_per_img_5_min_word_freq",
+    parser.add_argument('--data_name', default="flickr8k_5_cap_per_img_5_min_word_freq",
                         help='base name shared by data files.')
     # Model parameters
     parser.add_argument('--emb_dim', type=int, default=300, help='dimension of word embeddings.')
