@@ -358,8 +358,8 @@ if __name__ == '__main__':
     print("encoder_layers {} decoder_layers {} n_heads {} dropout {} attention_method {} encoder_lr {} "
           "decoder_lr {} alpha_c {}".format(args.encoder_layers, args.decoder_layers, args.n_heads, args.dropout,
                                             args.attention_method, args.encoder_lr, args.decoder_lr, args.alpha_c))
-    print(encoder)
-    print(decoder)
+#     print(encoder)
+#     print(decoder)
 
     # Loss function
     criterion = nn.CrossEntropyLoss().to(device)
